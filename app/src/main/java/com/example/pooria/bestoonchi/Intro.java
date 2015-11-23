@@ -40,6 +40,7 @@ public class Intro extends AppCompatActivity {
 //            this is test
 
             Log.i("log","intro");
+            Log.i("log","new log best");
             Intro.this.finish();
 
         }
