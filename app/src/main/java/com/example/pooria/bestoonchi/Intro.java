@@ -36,7 +36,7 @@ public class Intro extends AppCompatActivity {
             Log.i("log", "number300");
             Intent intent=new Intent(Intro.this,help.class);
             startActivity(intent);
-            Toast.makeText(this, "helo",Toast.LENGTH_LONG);
+            Toast.makeText(this, "helo",Toast.LENGTH_LONG).show();
 //            this is test
 
             Log.i("log","intro");
