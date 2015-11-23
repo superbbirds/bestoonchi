@@ -40,7 +40,7 @@ public class Intro extends AppCompatActivity {
             Toast.makeText(this, "helo2",Toast.LENGTH_LONG).show();
 //            this is test
 
-            Log.i("log","intro");
+            Log.i("log","right");
             Log.i("log","new log best");
             Intro.this.finish();
 
