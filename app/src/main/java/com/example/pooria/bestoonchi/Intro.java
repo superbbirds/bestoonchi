@@ -33,6 +33,7 @@ public class Intro extends AppCompatActivity {
                     startActivity(i);
                 }
                 catch (Exception e) {
+
                 }
             }
         };
