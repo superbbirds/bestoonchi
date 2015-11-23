@@ -38,6 +38,8 @@ public class Intro extends AppCompatActivity {
             startActivity(intent);
             Toast.makeText(this, "helo",Toast.LENGTH_LONG);
 //            this is test
+
+            Log.i("log","intro");
             Intro.this.finish();
 
         }
