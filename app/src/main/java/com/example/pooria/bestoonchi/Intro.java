@@ -36,6 +36,7 @@ public class Intro extends AppCompatActivity {
             Log.i("log", "number300");
             Intent intent=new Intent(Intro.this,help.class);
             startActivity(intent);
+//            this is test
             Intro.this.finish();
 
         }
