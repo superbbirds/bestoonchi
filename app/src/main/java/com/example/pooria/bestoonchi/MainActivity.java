@@ -19,6 +19,7 @@ import android.widget.ImageView;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
+import com.parse.ParseSession;
 
 
 public class MainActivity extends AppCompatActivity
@@ -31,9 +32,10 @@ public class MainActivity extends AppCompatActivity
         actionBarInit();
 
         // Enable Local Datastore.
-        Parse.enableLocalDatastore(this);
+
+       Parse.enableLocalDatastore(this);
         // parse init with api key
-        Parse.initialize(this, "1xUbMQYxhB3lwZwjz2BB10FqbbublPFIQ0fynxrc", "GN6TJIQ43Lcli6IrqTOYguO3Zz78dKlYU0uI4uTR");
+       Parse.initialize(this, "1xUbMQYxhB3lwZwjz2BB10FqbbublPFIQ0fynxrc", "GN6TJIQ43Lcli6IrqTOYguO3Zz78dKlYU0uI4uTR");
 
         //insert Test (class: Testobject / column: foo / data: bar)
        /* ParseObject testObj = new ParseObject("TestObject");
