@@ -8,44 +8,45 @@
     tools:context="com.example.pooria.bestoonchi.RequestActivity">
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText2"
+        android:id="@+id/request_name"
         android:layout_marginTop="68dp"
-        android:text="object"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:hint="@string/request_name" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:ems="10"
-        android:id="@+id/editText3"
-        android:text="explain that you want "
-        android:layout_below="@+id/editText2"
+        android:id="@+id/request_tozihat"
+        android:layout_below="@+id/request_name"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="55dp" />
+        android:layout_marginTop="55dp"
+        android:hint="@string/request_tozhihat" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText4"
-        android:layout_marginTop="48dp"
-        android:text="how many day you can wait"
-        android:layout_below="@+id/editText3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:id="@+id/request_expireTime"
+        android:layout_marginTop="54dp"
+        android:hint="@string/request_expireTime"
+        android:layout_below="@+id/request_tozihat"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="submit"
-        android:id="@+id/button6"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/editText4"
-        android:layout_alignEnd="@+id/editText4" />
+        android:text="@string/request_submit"
+        android:id="@+id/request_submit"
+        android:layout_below="@+id/request_expireTime"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="40dp" />
 
 </RelativeLayout>

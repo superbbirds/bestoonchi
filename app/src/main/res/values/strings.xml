@@ -69,4 +69,9 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+    <string name="request_title">object</string>
+    <string name="request_tozhihat">explain that you want</string>
+    <string name="request_expireTime">how many day you can wait</string>
+    <string name="request_name">object</string>
+    <string name="request_submit">submit</string>
 </resources>
