@@ -17,6 +17,10 @@ import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.parse.Parse;
+import com.parse.ParseObject;
+
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -25,6 +29,16 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         actionBarInit();
+
+        // Enable Local Datastore.
+        Parse.enableLocalDatastore(this);
+        // parse init with api key
+        Parse.initialize(this, "1xUbMQYxhB3lwZwjz2BB10FqbbublPFIQ0fynxrc", "GN6TJIQ43Lcli6IrqTOYguO3Zz78dKlYU0uI4uTR");
+
+        //insert Test (class: Testobject / column: foo / data: bar)
+       /* ParseObject testObj = new ParseObject("TestObject");
+        testObj.put("foo", "bar");
+        testObj.saveInBackground();*/
 
         ImageView ibtn1=(ImageView)findViewById(R.id.imageView4);
         ImageView ibtn2=(ImageView)findViewById(R.id.imageView7);
