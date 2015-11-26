@@ -31,17 +31,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         actionBarInit();
 
-        // Enable Local Datastore.
-
-       Parse.enableLocalDatastore(this);
-        // parse init with api key
-       Parse.initialize(this, "1xUbMQYxhB3lwZwjz2BB10FqbbublPFIQ0fynxrc", "GN6TJIQ43Lcli6IrqTOYguO3Zz78dKlYU0uI4uTR");
-
-        //insert Test (class: Testobject / column: foo / data: bar)
-       /* ParseObject testObj = new ParseObject("TestObject");
-        testObj.put("foo", "bar");
-        testObj.saveInBackground();*/
-
         ImageView ibtn1=(ImageView)findViewById(R.id.imageView4);
         ImageView ibtn2=(ImageView)findViewById(R.id.imageView7);
         ImageView ibtn3=(ImageView)findViewById(R.id.imageView8);

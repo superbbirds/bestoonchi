@@ -1,17 +1,16 @@
 package com.example.pooria.bestoonchi;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.style.TtsSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
-import com.example.pooria.bestoonchi.Parse.parseConstant;
+import com.example.pooria.bestoonchi.parse.parseConstant;
 import com.parse.ParseObject;
 
-import java.util.Date;
+import java.util.Calendar;
 
 public class RequestActivity extends AppCompatActivity {
     EditText name_editText;
@@ -34,16 +33,29 @@ public class RequestActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                //create object to access parse class
-                ParseObject requestObject = new ParseObject(parseConstant.request_Class_Name);
 
                 //put data in objcet
-                requestObject.put(parseConstant.request_Field_Name, "test name");
-                requestObject.put(parseConstant.request_Field_Tozihat, "test tozihat");
+                if (name_editText.getText().toString().isEmpty() || expireTime_editText.getText().toString().isEmpty() || tozihat_editText.getText().toString().isEmpty())
+                {
+                    Toast.makeText(RequestActivity.this,"error!! some field is Empty",Toast.LENGTH_LONG).show();
 
-                //save & send data to parse in backgroud (new thread )
-                requestObject.saveInBackground();
+                }else {
 
+                    //create object to access parse class
+                    ParseObject requestObject = new ParseObject(parseConstant.request_Class_Name);
+
+                    //put data in objcet
+                    requestObject.put(parseConstant.request_Field_Name, name_editText);
+                    requestObject.put(parseConstant.request_Field_Tozihat, tozihat_editText);
+                    Calendar c = Calendar.getInstance();
+                    int seconds = c.get(Calendar.SECOND);
+
+               //     requestObject.put(parseConstant.request_Field_Tozihat, Calendar.getInstance());
+
+                    //save & send data to parse in backgroud (new thread )
+                    requestObject.saveInBackground();
+
+                }
                 // back to previous activity
                 navigateToMain();
 
