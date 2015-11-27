@@ -76,4 +76,6 @@
     <string name="request_expireTime">how many day you can wait</string>
     <string name="request_name">object</string>
     <string name="request_submit">submit</string>
+    <string name="error_fieldsEmpty">error!! some field is Empty</string>
+    <string name="request_expiretime_btn">Pick Expire Time</string>
 </resources>

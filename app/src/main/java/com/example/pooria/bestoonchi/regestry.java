@@ -1,5 +1,6 @@
 package com.example.pooria.bestoonchi;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ public class regestry extends AppCompatActivity {
                 Intent intent=new Intent(regestry.this,MainActivity.class);
                 startActivity(intent);
                 regestry.this.finish();
+
             }
         });
 

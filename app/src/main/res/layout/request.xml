@@ -29,24 +29,26 @@
         android:layout_marginTop="55dp"
         android:hint="@string/request_tozhihat" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/request_expireTime"
-        android:layout_marginTop="54dp"
-        android:hint="@string/request_expireTime"
-        android:layout_below="@+id/request_tozihat"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/request_submit"
         android:id="@+id/request_submit"
-        android:layout_below="@+id/request_expireTime"
+        android:layout_marginTop="48dp"
+        android:layout_below="@+id/pick_date_button"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="40dp" />
+       />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/request_expiretime_btn"
+        android:id="@+id/pick_date_button"
+        android:layout_marginTop="56dp"
+        android:layout_below="@+id/request_tozihat"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:nestedScrollingEnabled="true" />
 
 </RelativeLayout>
