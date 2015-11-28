@@ -51,4 +51,15 @@
         android:layout_alignParentStart="true"
         android:nestedScrollingEnabled="true" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/request_imagepicker"
+        android:id="@+id/request_pick_image"
+        android:layout_alignTop="@+id/pick_date_button"
+        android:layout_toRightOf="@+id/pick_date_button"
+        android:layout_toEndOf="@+id/pick_date_button"
+        android:layout_marginLeft="44dp"
+        android:layout_marginStart="44dp" />
+
 </RelativeLayout>

@@ -78,4 +78,5 @@
     <string name="request_submit">submit</string>
     <string name="error_fieldsEmpty">error!! some field is Empty</string>
     <string name="request_expiretime_btn">Pick Expire Time</string>
+    <string name="request_imagepicker">Pick Image</string>
 </resources>
