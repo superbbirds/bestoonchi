@@ -4,6 +4,9 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Parcelable;
@@ -15,9 +18,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -88,6 +93,26 @@ public class RequestActivity extends AppCompatActivity {
 
         requestObject.put(parseConstant.request_Field_ExpireTime, calendarParse.getTime());
         //     requestObject.put(parseConstant.request_Field_Tozihat, Calendar.getInstance());
+
+
+        //save image file from outputFileUri
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
+                R.drawable.help1);
+
+        // Convert it to byte
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        // Compress image to lower quality scale 1 - 100
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] image = stream.toByteArray();
+
+
+        // Create the ParseFile
+        ParseFile file = new ParseFile("help1", image);
+        // Upload the image into Parse Cloud
+        file.saveInBackground();
+
+        requestObject.put(parseConstant.request_Field_Picture, file);
+
 
         //save & send data to parse in backgroud (new thread )
         requestObject.saveInBackground();
