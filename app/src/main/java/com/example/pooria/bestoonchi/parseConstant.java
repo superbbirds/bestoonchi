@@ -18,8 +18,6 @@ public class parseConstant extends Application{
     public static String request_Field_Picture = "xae";
     public static String request_Field_ExpireTime = "extime";
 
-
-
     @Override
     public void onCreate() {
         super.onCreate();
