@@ -1,6 +1,5 @@
 package com.example.pooria.bestoonchi;
 
-import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,13 +7,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.afkar.sundatepicker.*;
-import com.example.pooria.bestoonchi.parse.parseConstant;
 import com.parse.ParseObject;
 
 
 import java.util.Calendar;
-import java.util.TimeZone;
 
 public class RequestActivity extends AppCompatActivity {
     EditText name_editText;
