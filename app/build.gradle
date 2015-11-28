@@ -28,5 +28,4 @@ dependencies {
     compile 'com.parse.bolts:bolts-android:1.+'
     compile 'com.parse:parse-android:1.+'
     compile 'com.github.alirezaafkar:SunDate_Picker:1.1.0'
-    compile files('src/main/libs/Parse-1.11.0.jar')
 }

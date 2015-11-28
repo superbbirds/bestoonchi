@@ -2,6 +2,8 @@ package com.example.pooria.bestoonchi;
 
 import android.app.Application;
 
+import com.parse.Parse;
+
 /**
  * Created by mm on 11/25/2015.
  */
@@ -18,5 +20,13 @@ public class parseConstant extends Application{
 
 
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        // Enable Local Datastore.
+        Parse.enableLocalDatastore(this);
+        Parse.initialize(this, "1xUbMQYxhB3lwZwjz2BB10FqbbublPFIQ0fynxrc", "GN6TJIQ43Lcli6IrqTOYguO3Zz78dKlYU0uI4uTR");
+
+    }
 }
 
