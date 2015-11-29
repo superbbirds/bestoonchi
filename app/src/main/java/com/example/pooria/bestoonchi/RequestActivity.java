@@ -33,7 +33,7 @@ import java.util.List;
 public class RequestActivity extends AppCompatActivity {
     EditText name_editText;
     EditText tozihat_editText;
-    Calendar calendarParse = Calendar.getInstance();
+    Calendar calendarParse ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,24 +60,29 @@ public class RequestActivity extends AppCompatActivity {
         findViewById(R.id.request_submit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView messageTextView = (TextView) findViewById(R.id._message);
-                if (selectedImageUri == null) {
-                    messageTextView.setText("Empty ");
-                } else {
-                    messageTextView.setText(outputFileUri.toString() + " seleced " + selectedImageUri.toString());
-                }
 
-                if (name_editText.getText().toString().isEmpty() || tozihat_editText.getText().toString().isEmpty()) {
-                    ToastMe(R.string.error_fieldsEmpty);
-                } else {
+                if (name_editText.getText().toString().isEmpty() || tozihat_editText.getText().toString().isEmpty()
+                        ||calendarParse == null||selectedImageUri == null)
+                {
+                    if (name_editText.getText().toString().isEmpty() || tozihat_editText.getText().toString().isEmpty()) {
+                        ToastMe(R.string.error_fieldsEmpty);
+                    }
+                    if (calendarParse ==null) {
+                        ToastMe("Calendar ERORR!!");
+                    }
+
+                    if (selectedImageUri == null) {
+                        ToastMe("Image Picker not Selected!!");
+                    }
+                }else{
                     //put data in objcet
                     saveData_Parse();
                     // back to previous activity
                     navigateToMain();
+                    ToastMe("Save Success!!");
+
                 }
             }
-
-
         });
     }
 
@@ -118,7 +123,7 @@ public class RequestActivity extends AppCompatActivity {
         String filePath = cursor.getString(columnIndex);
         cursor.close();
 
-
+                    //ERROR when recent image picked
         Bitmap bitmap = BitmapFactory.decodeFile(filePath);
 
         //save image file from outputFileUri
@@ -239,7 +244,6 @@ public class RequestActivity extends AppCompatActivity {
 
 
                 if (isCamera) {
-
                     selectedImageUri = outputFileUri;
                 } else {
                     selectedImageUri = data == null ? null : data.getData();
