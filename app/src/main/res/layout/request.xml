@@ -62,4 +62,13 @@
         android:layout_marginLeft="44dp"
         android:layout_marginStart="44dp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Texti"
+        android:id="@+id/_message"
+        android:layout_below="@+id/request_submit"
+        android:layout_toRightOf="@+id/pick_date_button"
+        android:layout_toEndOf="@+id/pick_date_button" />
+
 </RelativeLayout>
