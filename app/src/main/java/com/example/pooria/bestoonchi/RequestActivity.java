@@ -23,7 +23,6 @@ import android.widget.Toast;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
@@ -57,6 +56,7 @@ public class RequestActivity extends AppCompatActivity {
             }
         });
 
+        //Submit button
         findViewById(R.id.request_submit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,14 +68,14 @@ public class RequestActivity extends AppCompatActivity {
                         ToastMe(R.string.error_fieldsEmpty);
                     }
                     if (calendarParse ==null) {
-                        ToastMe("Calendar ERORR!!");
+                        ToastMe("Calendar error!!");
                     }
 
                     if (selectedImageUri == null) {
                         ToastMe("Image Picker not Selected!!");
                     }
                 }else{
-                    //put data in objcet
+                    //put data in requestObject
                     saveData_Parse();
                     // back to previous activity
                     navigateToMain();
@@ -183,7 +183,8 @@ public class RequestActivity extends AppCompatActivity {
     //ImagePicker output URI to using ...
     private Uri selectedImageUri;
 
-    //imagePicker methode
+    //imagePicker method
+    //http://stackoverflow.com/questions/2507898/how-to-pick-an-image-from-gallery-sd-card-for-my-app
     private void openImageIntent() {
 
 // Determine Uri of camera image to save.
