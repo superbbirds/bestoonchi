@@ -98,16 +98,16 @@ public class RequestActivity extends AppCompatActivity {
         // Create the ParseFile
         ParseFile file = new ParseFile("img_" + System.currentTimeMillis() + ".jpg", image);
 
-        // save file in backgroud thread
+        // save file in saveInBackground thread
         file.saveInBackground();
 
-        //put data in objcet
+        //put data in requestObject
         requestObject.put(parseConstant.request_Field_Name, name_editText.getText().toString());
         requestObject.put(parseConstant.request_Field_Tozihat, tozihat_editText.getText().toString());
         requestObject.put(parseConstant.request_Field_ExpireTime, calendarParse.getTime());
         requestObject.put(parseConstant.request_Field_Picture, file);
 
-        //save & send data to parse in backgroud (new thread )
+        //save & send data to parse in saveInBackground (new thread )
         requestObject.saveInBackground();
     }
 
@@ -138,7 +138,7 @@ public class RequestActivity extends AppCompatActivity {
 
     //dataPicker Dialog
     public void show_DatePicker() {
-        final Calendar tempCalendar = Calendar.getInstance();
+
         com.afkar.sundatepicker.DatePickerDialog dp = com.afkar.sundatepicker.DatePickerDialog.newInstance(new com.afkar.sundatepicker.DatePickerDialog.OnDateSetListener() {
 
             @Override
