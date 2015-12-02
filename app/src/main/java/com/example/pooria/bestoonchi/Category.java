@@ -20,7 +20,7 @@ public class Category extends AppCompatActivity {
         CategorySelect();
 
         //change activity
-        Button btnSubmit=(Button)findViewById(R.id.button8);
+        Button btnSubmit=(Button)findViewById(R.id.button9);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

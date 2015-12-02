@@ -40,10 +40,6 @@
             android:parentActivityName=".MainActivity" >
         </activity>
         <activity
-            android:name=".CategoryActivity"
-            android:parentActivityName=".MainActivity" >
-        </activity>
-        <activity
             android:name=".info"
             android:parentActivityName=".MainActivity" >
         </activity>
