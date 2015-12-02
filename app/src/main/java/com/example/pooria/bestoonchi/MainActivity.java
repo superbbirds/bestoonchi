@@ -30,7 +30,16 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         actionBarInit();
+// Enable Local Datastore.
 
+        Parse.enableLocalDatastore(this);
+        // parse init with api key
+        Parse.initialize(this, "1xUbMQYxhB3lwZwjz2BB10FqbbublPFIQ0fynxrc", "GN6TJIQ43Lcli6IrqTOYguO3Zz78dKlYU0uI4uTR");
+
+        //insert Test (class: Testobject / column: foo / data: bar)
+       /* ParseObject testObj = new ParseObject("TestObject");
+        testObj.put("foo", "bar");
+        testObj.saveInBackground();*/
         ImageView ibtn1=(ImageView)findViewById(R.id.imageView4);
         ImageView ibtn2=(ImageView)findViewById(R.id.imageView7);
         ImageView ibtn3=(ImageView)findViewById(R.id.imageView8);
@@ -132,23 +141,23 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camara) {
-Intent intent=new Intent(MainActivity.this,Category.class);
+        if (id == R.id.Category) {
+Intent intent=new Intent(MainActivity.this,CategoryActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.MyActivity) {
 Intent intent=new Intent(MainActivity.this,MyactivityActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.Myselles) {
 Intent intent=new Intent(MainActivity.this,SellesActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.Setting) {
 Intent intent=new Intent(MainActivity.this,SettingsActivity.class);
             startActivity(intent);
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.Regestry) {
 Intent intent=new Intent(MainActivity.this,regestry.class);
             startActivity(intent);
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.Inbox) {
 Intent intent=new Intent(MainActivity.this,InboxActivity.class);
             startActivity(intent);
         }
