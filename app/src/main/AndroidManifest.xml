@@ -38,7 +38,7 @@
         <activity android:name=".regestry"
             android:parentActivityName=".MainActivity">
         </activity>
-        <activity android:name=".Category"
+        <activity android:name=".CategoryActivity"
             android:parentActivityName=".MainActivity">
         </activity>
         <activity android:name=".info"

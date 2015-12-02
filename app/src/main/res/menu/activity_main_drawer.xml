@@ -2,21 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <item android:id="@+id/nav_camara" android:icon="@android:drawable/ic_menu_view"
+        <item android:id="@+id/Category" android:icon="@android:drawable/ic_menu_view"
             android:title="Category" />
-        <item android:id="@+id/nav_gallery" android:icon="@android:drawable/ic_menu_my_calendar"
+        <item android:id="@+id/MyActivity" android:icon="@android:drawable/ic_menu_my_calendar"
             android:title="MyActivity" />
-        <item android:id="@+id/nav_slideshow" android:icon="@android:drawable/ic_menu_myplaces"
+        <item android:id="@+id/Myselles" android:icon="@android:drawable/ic_menu_myplaces"
             android:title="MySelles" />
-        <item android:id="@+id/nav_manage" android:icon="@android:drawable/ic_menu_manage"
+        <item android:id="@+id/Setting" android:icon="@android:drawable/ic_menu_manage"
             android:title="Setting" />
     </group>
 
     <item android:title="Communicate">
         <menu>
-            <item android:id="@+id/nav_share" android:icon="@android:drawable/ic_menu_add"
+            <item android:id="@+id/Regestry" android:icon="@android:drawable/ic_menu_add"
                 android:title="Regestry" />
-            <item android:id="@+id/nav_send" android:icon="@android:drawable/sym_action_email"
+            <item android:id="@+id/Inbox" android:icon="@android:drawable/sym_action_email"
                 android:title="Inbox" />
         </menu>
     </item>
