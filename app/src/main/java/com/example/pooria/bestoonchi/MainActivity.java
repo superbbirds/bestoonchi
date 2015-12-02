@@ -1,10 +1,8 @@
 package com.example.pooria.bestoonchi;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,12 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.parse.Parse;
-import com.parse.ParseObject;
-import com.parse.ParseSession;
+
 
 
 public class MainActivity extends AppCompatActivity
@@ -30,16 +25,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         actionBarInit();
-// Enable Local Datastore.
-
-        Parse.enableLocalDatastore(this);
-        // parse init with api key
-        Parse.initialize(this, "1xUbMQYxhB3lwZwjz2BB10FqbbublPFIQ0fynxrc", "GN6TJIQ43Lcli6IrqTOYguO3Zz78dKlYU0uI4uTR");
-
-        //insert Test (class: Testobject / column: foo / data: bar)
-       /* ParseObject testObj = new ParseObject("TestObject");
-        testObj.put("foo", "bar");
-        testObj.saveInBackground();*/
         ImageView ibtn1=(ImageView)findViewById(R.id.imageView4);
         ImageView ibtn2=(ImageView)findViewById(R.id.imageView7);
         ImageView ibtn3=(ImageView)findViewById(R.id.imageView8);
@@ -142,7 +127,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.Category) {
-Intent intent=new Intent(MainActivity.this,CategoryActivity.class);
+Intent intent=new Intent(MainActivity.this,Category.class);
             startActivity(intent);
         } else if (id == R.id.MyActivity) {
 Intent intent=new Intent(MainActivity.this,MyactivityActivity.class);
