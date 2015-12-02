@@ -2,6 +2,7 @@ package com.example.pooria.bestoonchi.model;
 
 /**
  * Created by mm on 12/2/2015.
+ *
  */
 public class Darkhast {
 

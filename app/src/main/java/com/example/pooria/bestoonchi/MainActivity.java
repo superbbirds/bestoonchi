@@ -24,7 +24,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    // Array of Darkhast class
     private List<Darkhast> darkhasts;
     private RecyclerView rv;
 
@@ -34,18 +34,22 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         actionBarInit();
 
-        //list
+        // RecyclerListView
         rv=(RecyclerView)findViewById(R.id.rv);
 
         //layout manager in 3form (linear , grid , staggeredGrid)
+        int columns = 2;
         //LinearLayoutManager llm = new LinearLayoutManager(this);
+        //StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(columns, StaggeredGridLayoutManager.VERTICAL);
+        GridLayoutManager llm2  = new GridLayoutManager(this,columns);
 
-        GridLayoutManager llm2  = new GridLayoutManager(this,2);  //StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         rv.setLayoutManager(llm2);
         rv.setHasFixedSize(true);
 
-
+        //read data from Parse.com and add to darkhastArray
         initializeData();
+
+        //connect darkhastArray to RecyclerListView
         initializeAdapter();
 
 
@@ -145,10 +149,11 @@ Intent intent=new Intent(MainActivity.this,InboxActivity.class);
 
 
     private void initializeData(){
+
         darkhasts = new ArrayList<>();
-        darkhasts.add(new Darkhast("Emma Wilson", "23 years old", R.drawable.object1));
-        darkhasts.add(new Darkhast("Lavery Maiss", "25 years old", R.drawable.object2));
-        darkhasts.add(new Darkhast("Lillie Watts", "35 years old", R.drawable.object3));
+        darkhasts.add(new Darkhast("Kala 1", "56000", R.drawable.object1));
+        darkhasts.add(new Darkhast("jense ", "78000", R.drawable.object2));
+        darkhasts.add(new Darkhast("product", "160000", R.drawable.object3));
     }
 
 

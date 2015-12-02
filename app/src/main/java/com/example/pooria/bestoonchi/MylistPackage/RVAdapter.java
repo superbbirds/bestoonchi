@@ -11,8 +11,10 @@ package com.example.pooria.bestoonchi.MylistPackage;
         import android.view.ViewGroup;
         import android.widget.ImageView;
         import android.widget.TextView;
+        import android.widget.Toast;
 
 
+        import com.example.pooria.bestoonchi.MainActivity;
         import com.example.pooria.bestoonchi.R;
         import com.example.pooria.bestoonchi.model.Darkhast;
 
@@ -31,12 +33,20 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
         ImageView photoId;
 
 
-        PersonViewHolder(View itemView) {
+        PersonViewHolder(final View itemView) {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.cv);
             title = (TextView)itemView.findViewById(R.id.darkhast_title);
             gheymat = (TextView)itemView.findViewById(R.id.darkhast_gheymat);
             photoId = (ImageView)itemView.findViewById(R.id.darkhast_photo);
+
+            //onClick Event for each items
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(itemView.getContext(), "From RVAdapter- Title :  " + title.getText(), Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 
@@ -57,6 +67,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
 
     @Override
     public PersonViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        //connect layout to this viewGroup
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup, false);
         PersonViewHolder pvh = new PersonViewHolder(v);
         return pvh;
