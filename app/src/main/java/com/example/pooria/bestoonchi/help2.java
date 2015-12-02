@@ -27,8 +27,8 @@ public class help2 extends AppCompatActivity {
         btnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intet=new Intent(help2.this,help.class);
-                startActivity(intet);
+                Intent intent=new Intent(help2.this,help.class);
+                startActivity(intent);
 
             }
         });
