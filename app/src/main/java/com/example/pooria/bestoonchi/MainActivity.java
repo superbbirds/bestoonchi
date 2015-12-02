@@ -3,6 +3,8 @@ package com.example.pooria.bestoonchi;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,51 +14,40 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 
+import com.example.pooria.bestoonchi.MylistPackage.RVAdapter;
+import com.example.pooria.bestoonchi.model.Darkhast;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private List<Darkhast> darkhasts;
+    private RecyclerView rv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         actionBarInit();
-        ImageView ibtn1=(ImageView)findViewById(R.id.imageView4);
-        ImageView ibtn2=(ImageView)findViewById(R.id.imageView7);
-        ImageView ibtn3=(ImageView)findViewById(R.id.imageView8);
-        ImageView ibtn4=(ImageView)findViewById(R.id.imageView5);
-        ibtn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this,ItemdetailActivity.class);
-                startActivity(intent);
-            }
-        });
-        ibtn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this,ItemdetailActivity.class);
-                startActivity(intent);
-            }
-        });
-        ibtn3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this,ItemdetailActivity.class);
-                startActivity(intent);
-            }
-        });
-        ibtn4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this,ItemdetailActivity.class);
-                startActivity(intent);
-            }
-        });
+
+        //list
+        rv=(RecyclerView)findViewById(R.id.rv);
+
+        //layout manager in 3form (linear , grid , staggeredGrid)
+        //LinearLayoutManager llm = new LinearLayoutManager(this);
+
+        GridLayoutManager llm2  = new GridLayoutManager(this,2);  //StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        rv.setLayoutManager(llm2);
+        rv.setHasFixedSize(true);
+
+
+        initializeData();
+        initializeAdapter();
+
 
 
     }
@@ -150,5 +141,19 @@ Intent intent=new Intent(MainActivity.this,InboxActivity.class);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    private void initializeData(){
+        darkhasts = new ArrayList<>();
+        darkhasts.add(new Darkhast("Emma Wilson", "23 years old", R.drawable.object1));
+        darkhasts.add(new Darkhast("Lavery Maiss", "25 years old", R.drawable.object2));
+        darkhasts.add(new Darkhast("Lillie Watts", "35 years old", R.drawable.object3));
+    }
+
+
+    private void initializeAdapter(){
+        RVAdapter adapter = new RVAdapter(darkhasts);
+        rv.setAdapter(adapter);
     }
 }
