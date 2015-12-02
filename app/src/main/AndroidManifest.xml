@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon,android:theme" >
-        <activity android:name=".Intro" >
+        <activity android:name=".Intro"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,9 +32,11 @@
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
-        <activity android:name=".help" >
+        <activity android:name=".help"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".help2" >
+        <activity android:name=".help2"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
             android:name=".regestry"
