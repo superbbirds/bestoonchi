@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,12 +15,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.pooria.bestoonchi.MylistPackage.RVAdapter;
 import com.example.pooria.bestoonchi.model.Darkhast;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
+import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 
 public class MainActivity extends AppCompatActivity
@@ -48,10 +56,6 @@ public class MainActivity extends AppCompatActivity
 
         //read data from Parse.com and add to darkhastArray
         initializeData();
-
-        //connect darkhastArray to RecyclerListView
-        initializeAdapter();
-
 
 
     }
@@ -148,12 +152,40 @@ Intent intent=new Intent(MainActivity.this,InboxActivity.class);
     }
 
 
-    private void initializeData(){
+    private void initializeData() {
 
         darkhasts = new ArrayList<>();
-        darkhasts.add(new Darkhast("Kala 1", "56000", R.drawable.object1));
-        darkhasts.add(new Darkhast("jense ", "78000", R.drawable.object2));
-        darkhasts.add(new Darkhast("product", "160000", R.drawable.object3));
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery(parseConstant.request_Class_Name);
+        query.findInBackground(new FindCallback<ParseObject>() {
+
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (e == null) {
+
+                    // GENERATE LOOP HERE AND GET ALL DATA OF LIST INTO YOUR LOCAL LIST WHICH YOU ARE PASSING TO ADAPTER OF RECYCLER VIEW
+                    //I am telling you to add loop so you can learn..
+                    for (int i = 0; i < objects.size(); i++) {
+                        String title = objects.get(i).getString(parseConstant.request_Field_Name);
+
+                        //  objects.get(i).getParseFile(parseConstant.request_Field_Picture);
+                        Darkhast information = new Darkhast(title, "item :" + i, R.mipmap.ic_launcher);
+                        darkhasts.add(information);
+
+                        //change Adapter OR add itemAdapter must be implement here
+
+                    }
+                    //connect RecyclerListView to Darkhasts <list>
+                    initializeAdapter();
+                } else {
+                    Toast.makeText(MainActivity.this, "error " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    // something went wrong
+                    Log.d("Error ", e.toString());
+                }
+            }
+
+
+        });
     }
 
 

@@ -55,7 +55,9 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
 
 
     public RVAdapter(List<Darkhast> darkhasts){
+
         this.darkhasts = darkhasts;
+
     }
 
 
