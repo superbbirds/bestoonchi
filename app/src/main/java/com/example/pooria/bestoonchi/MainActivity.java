@@ -1,6 +1,9 @@
 package com.example.pooria.bestoonchi;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.GridLayoutManager;
@@ -15,12 +18,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.pooria.bestoonchi.MylistPackage.RVAdapter;
 import com.example.pooria.bestoonchi.model.Darkhast;
 import com.parse.FindCallback;
+import com.parse.GetDataCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseImageView;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -35,21 +42,22 @@ public class MainActivity extends AppCompatActivity
     // Array of Darkhast class
     private List<Darkhast> darkhasts;
     private RecyclerView rv;
+    private static final String TAG = "MainActivity";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)  {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         actionBarInit();
 
         // RecyclerListView
-        rv=(RecyclerView)findViewById(R.id.rv);
+        rv = (RecyclerView) findViewById(R.id.rv);
 
         //layout manager in 3form (linear , grid , staggeredGrid)
         int columns = 2;
         //LinearLayoutManager llm = new LinearLayoutManager(this);
         //StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(columns, StaggeredGridLayoutManager.VERTICAL);
-        GridLayoutManager llm2  = new GridLayoutManager(this,columns);
+        GridLayoutManager llm2 = new GridLayoutManager(this, columns);
 
         rv.setLayoutManager(llm2);
         rv.setHasFixedSize(true);
@@ -126,23 +134,23 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.Category) {
-Intent intent=new Intent(MainActivity.this,Category.class);
+            Intent intent = new Intent(MainActivity.this, Category.class);
             startActivity(intent);
         } else if (id == R.id.MyActivity) {
-Intent intent=new Intent(MainActivity.this,MyactivityActivity.class);
+            Intent intent = new Intent(MainActivity.this, MyactivityActivity.class);
             startActivity(intent);
         } else if (id == R.id.Myselles) {
-Intent intent=new Intent(MainActivity.this,SellesActivity.class);
+            Intent intent = new Intent(MainActivity.this, SellesActivity.class);
             startActivity(intent);
         } else if (id == R.id.Setting) {
-Intent intent=new Intent(MainActivity.this,SettingsActivity.class);
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.Regestry) {
-Intent intent=new Intent(MainActivity.this,regestry.class);
+            Intent intent = new Intent(MainActivity.this, regestry.class);
             startActivity(intent);
         } else if (id == R.id.Inbox) {
-Intent intent=new Intent(MainActivity.this,InboxActivity.class);
+            Intent intent = new Intent(MainActivity.this, InboxActivity.class);
             startActivity(intent);
         }
 
@@ -151,8 +159,13 @@ Intent intent=new Intent(MainActivity.this,InboxActivity.class);
         return true;
     }
 
+    private ProgressDialog progressDialog;
+    List<ParseObject> objects;
+    RVAdapter adapter;
 
     private void initializeData() {
+        progressDialog = ProgressDialog.show(MainActivity.this, "",
+                "Loading...", true);
 
         darkhasts = new ArrayList<>();
 
@@ -165,32 +178,71 @@ Intent intent=new Intent(MainActivity.this,InboxActivity.class);
 
                     // GENERATE LOOP HERE AND GET ALL DATA OF LIST INTO YOUR LOCAL LIST WHICH YOU ARE PASSING TO ADAPTER OF RECYCLER VIEW
                     //I am telling you to add loop so you can learn..
+
+                    //for best performance, image must be caching with Libs ( Fresco - Glide or Picasa - UIL)
+                    //otherwise we need to extend ParseQueryAdapter and shim to RVAdapter
                     for (int i = 0; i < objects.size(); i++) {
                         String title = objects.get(i).getString(parseConstant.request_Field_Name);
+                        String description = objects.get(i).getString(parseConstant.request_Field_Tozihat);
+                        ParseFile photoFile = objects.get(i).getParseFile(parseConstant.request_Field_Picture);
 
-                        //  objects.get(i).getParseFile(parseConstant.request_Field_Picture);
-                        Darkhast information = new Darkhast(title, "item :" + i, R.mipmap.ic_launcher);
+                        if (photoFile == null) {
+                            Log.e("test",
+                                    "Error no photo." + i);
+
+                            //get NoPhoto must be here
+                            photoFile = objects.get(16).getParseFile(parseConstant.request_Field_Picture);
+
+                        } else {
+                            photoFile.getDataInBackground(new GetDataCallback() {
+                                @Override
+                                public void done(byte[] data, ParseException e) {
+                                    if (e == null) {
+                                        Log.d("test",
+                                                "We've got data in data.");
+                                    }
+                                }
+                            });
+
+                        }
+
+                        Darkhast information = new Darkhast(title, description, photoFile);
                         darkhasts.add(information);
-
                         //change Adapter OR add itemAdapter must be implement here
 
                     }
                     //connect RecyclerListView to Darkhasts <list>
                     initializeAdapter();
+                    progressDialog.dismiss();
                 } else {
-                    Toast.makeText(MainActivity.this, "error " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                    Toast.makeText(MainActivity.this, "Loading Error " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     // something went wrong
                     Log.d("Error ", e.toString());
+
                 }
             }
 
 
         });
+
     }
 
-
-    private void initializeAdapter(){
-        RVAdapter adapter = new RVAdapter(darkhasts);
+    private void initializeAdapter() {
+        adapter = new RVAdapter(darkhasts);
         rv.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(adapter==null)
+        {
+            Log.e(TAG,"adapter is Null");
+        }
+            else{
+            adapter.notifyDataSetChanged();
+
+        }
     }
 }

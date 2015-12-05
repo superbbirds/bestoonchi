@@ -96,7 +96,7 @@ public class RequestActivity extends AppCompatActivity {
         byte[] image = get_Image_picked_Bytes();
 
         // Create the ParseFile
-        ParseFile file = new ParseFile("img_" + System.currentTimeMillis() + ".jpg", image);
+        ParseFile file = new ParseFile("img_" + System.currentTimeMillis() + ".PNG", image);
 
         // save file in saveInBackground thread
         file.saveInBackground();
@@ -107,6 +107,7 @@ public class RequestActivity extends AppCompatActivity {
         requestObject.put(parseConstant.request_Field_ExpireTime, calendarParse.getTime());
         requestObject.put(parseConstant.request_Field_Picture, file);
 
+        //image compress method or Libs must be add here
         //save & send data to parse in saveInBackground (new thread )
         requestObject.saveInBackground();
     }
@@ -190,7 +191,7 @@ public class RequestActivity extends AppCompatActivity {
 // Determine Uri of camera image to save.
         final File root = new File(Environment.getExternalStorageDirectory() + File.separator + "MyDir" + File.separator);
         root.mkdirs();
-        final String fname = "img_" + System.currentTimeMillis() + ".jpg";
+        final String fname = "img_" + System.currentTimeMillis() + ".PNG";
         final File sdImageMainDirectory = new File(root, fname);
         outputFileUri = Uri.fromFile(sdImageMainDirectory);
 

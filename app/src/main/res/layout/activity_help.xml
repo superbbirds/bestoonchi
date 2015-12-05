@@ -7,7 +7,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView2"
+        android:id="@+id/help1_imageView"
         android:layout_alignParentTop="true"
         android:src="@drawable/help1"
         android:layout_alignParentRight="true"

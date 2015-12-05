@@ -17,6 +17,10 @@ package com.example.pooria.bestoonchi.MylistPackage;
         import com.example.pooria.bestoonchi.MainActivity;
         import com.example.pooria.bestoonchi.R;
         import com.example.pooria.bestoonchi.model.Darkhast;
+        import com.parse.GetDataCallback;
+        import com.parse.ParseException;
+        import com.parse.ParseFile;
+        import com.parse.ParseImageView;
 
         import java.util.List;
 
@@ -30,7 +34,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
         CardView cv;
         TextView title;
         TextView gheymat;
-        ImageView photoId;
+        ParseImageView photoId;
 
 
         PersonViewHolder(final View itemView) {
@@ -38,7 +42,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
             cv = (CardView)itemView.findViewById(R.id.cv);
             title = (TextView)itemView.findViewById(R.id.darkhast_title);
             gheymat = (TextView)itemView.findViewById(R.id.darkhast_gheymat);
-            photoId = (ImageView)itemView.findViewById(R.id.darkhast_photo);
+            photoId = (ParseImageView)itemView.findViewById(R.id.darkhast_photo);
 
             //onClick Event for each items
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +84,19 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
     public void onBindViewHolder(PersonViewHolder personViewHolder, int i) {
         personViewHolder.title.setText(darkhasts.get(i).title);
         personViewHolder.gheymat.setText(darkhasts.get(i).gheymat);
-        personViewHolder.photoId.setImageResource(darkhasts.get(i).photoId);
+
+        //Binding parseFile to parseImage(darkhast_photo,photoId) in item.xml
+        ParseFile photoFile = darkhasts.get(i).photoFile;
+        if (photoFile != null) {
+            personViewHolder.photoId.setParseFile(photoFile);
+            personViewHolder.photoId.loadInBackground(new GetDataCallback() {
+                @Override
+                public void done(byte[] data, ParseException e) {
+                    // nothing to do
+                }
+            });
+        }
+
     }
 
 
