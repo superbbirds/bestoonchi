@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.pooria.bestoonchi.help2">
 
-    <ImageView
-        android:layout_width="fill_parent"
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/help2_imageView"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_above="@+id/button3"
-        android:src="@drawable/help2" />
+        fresco:placeholderImage="@drawable/help2"
+        fresco:actualImageScaleType="focusCrop"
+        />
 
     <Button
         android:layout_width="wrap_content"
