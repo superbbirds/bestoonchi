@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    card_view:cardCornerRadius="3dp"
+    android:layout_marginTop="9dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    card_view:cardElevation="0.01dp"
+    android:layout_marginBottom="0dp"
     android:id="@+id/cv"
     >
 
@@ -15,34 +22,85 @@
 
 
         <com.parse.ParseImageView
-            android:layout_width="144dp"
-            android:layout_height="144dp"
             android:id="@+id/darkhast_photo"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:scaleType="fitXY"
+            />
 
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/darkhast_title"
             android:textSize="30sp"
             android:text="sample text"
             android:layout_below="@+id/darkhast_photo"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:paddingLeft="5dp"
+            android:paddingRight="2dp"
+            android:layout_gravity="bottom"
+            android:gravity="center_vertical"
+            android:background="@color/colorPrimary"
+            android:textColor="#fff"
+            />
 
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/darkhast_gheymat"
-            android:text="sample text"
+            android:textSize="20sp"
+            android:text="text"
             android:layout_below="@+id/darkhast_title"
             android:layout_alignRight="@+id/darkhast_title"
-            android:layout_alignEnd="@+id/darkhast_title" />
+            android:layout_alignEnd="@+id/darkhast_title"
+            android:paddingLeft="5dp"
+            android:paddingRight="2dp"
+            android:layout_gravity="bottom"
+            android:gravity="center_vertical"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="#fff"/>
+        <Button
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:background="@drawable/ic_action_pin"
+            android:textColor="#FFFFFF"
+            android:id="@+id/darkhast_pin"
 
+            android:layout_below="@+id/darkhast_gheymat"
+            />
+        <Button
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+        android:background="@drawable/ic_action_dialog"
+        android:textColor="#FFFFFF"
+        android:id="@+id/darkhast_dialog"
 
+        android:layout_below="@+id/darkhast_gheymat"
+        android:layout_toRightOf="@+id/darkhast_pin"
+        />
+        <Button
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:background="@drawable/ic_supervisor_account"
+            android:textColor="#FFFFFF"
+            android:id="@+id/darkhast_supervisor"
+            android:layout_below="@+id/darkhast_gheymat"
+
+            android:layout_toRightOf="@+id/darkhast_dialog"
+            />
+        <Button
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:background="@drawable/ic_action_goright"
+            android:textColor="#FFFFFF"
+
+            android:id="@+id/darkhast_goright"
+            android:layout_below="@+id/darkhast_gheymat"
+            android:layout_toRightOf="@+id/darkhast_supervisor"
+            />
     </RelativeLayout>
 
 

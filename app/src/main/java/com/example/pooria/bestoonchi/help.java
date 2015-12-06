@@ -22,25 +22,17 @@ public class help extends AppCompatActivity {
         setContentView(R.layout.activity_help);
 
 
-        reduce();
-
-        Button btnnext=(Button)findViewById(R.id.button);
+        Button btnnext = (Button) findViewById(R.id.button);
         btnnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent=new Intent(help.this,help2.class);
+                Intent intent = new Intent(help.this, help2.class);
                 startActivity(intent);
-                finish();
+
 
             }
         });
-
-    }
-
-    private void reduce() {
-
-
 
     }
 }

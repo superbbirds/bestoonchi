@@ -26,15 +26,14 @@ public class help2 extends AppCompatActivity {
         setContentView(R.layout.activity_help2);
 
 
-
+        //uri builder for  resource drawable
         Uri uri = new Uri.Builder()
                 .scheme(UriUtil.LOCAL_RESOURCE_SCHEME) // "res"
                 .path(String.valueOf(R.id.help2_imageView))
                 .build();
+        // uri looks like res:/123456789
 
-        Toast.makeText(help2.this,""+UriUtil.isLocalResourceUri(uri) , Toast.LENGTH_SHORT).show();
-// uri looks like res:/123456789
-
+        //using fresco library to compress images ->more details: http://frescolib.org/docs/
         int width = 50, height = 50;
         ImageRequest request = ImageRequestBuilder.newBuilderWithResourceId(R.id.help2_imageView)
                 .setResizeOptions(new ResizeOptions(width, height))
@@ -50,22 +49,21 @@ public class help2 extends AppCompatActivity {
                 .setImageRequest(request)
                 .build();
         mSimpleDraweeView.setController(controller);
-       
 
-        Button btnnext=(Button)findViewById(R.id.button3);
+        Button btnnext = (Button) findViewById(R.id.button3);
         btnnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(help2.this,MainActivity.class);
+                Intent intent = new Intent(help2.this, MainActivity.class);
                 startActivity(intent);
                 help2.this.finish();
             }
         });
-    Button btnback=(Button)findViewById(R.id.button4);
+        Button btnback = (Button) findViewById(R.id.button4);
         btnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(help2.this,help.class);
+                Intent intent = new Intent(help2.this, help.class);
                 startActivity(intent);
                 help2.this.finish();
 

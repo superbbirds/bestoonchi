@@ -9,6 +9,7 @@ package com.example.pooria.bestoonchi.MylistPackage;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
+        import android.widget.Button;
         import android.widget.ImageView;
         import android.widget.TextView;
         import android.widget.Toast;
@@ -35,7 +36,10 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
         TextView title;
         TextView gheymat;
         ParseImageView photoId;
-
+        Button btnPin;
+        Button btnDialog;
+        Button btnsupervisor;
+        Button btngoright;
 
         PersonViewHolder(final View itemView) {
             super(itemView);
@@ -44,6 +48,12 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
             gheymat = (TextView)itemView.findViewById(R.id.darkhast_gheymat);
             photoId = (ParseImageView)itemView.findViewById(R.id.darkhast_photo);
 
+            btnDialog = (Button) itemView.findViewById(R.id.darkhast_dialog);
+            btnPin =(Button) itemView.findViewById(R.id.darkhast_pin);
+            btngoright =(Button) itemView.findViewById(R.id.darkhast_goright);
+            btnsupervisor = (Button) itemView.findViewById(R.id.darkhast_supervisor);
+
+
             //onClick Event for each items
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -51,6 +61,34 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
                     Toast.makeText(itemView.getContext(), "From RVAdapter- Title :  " + title.getText(), Toast.LENGTH_SHORT).show();
                 }
             });
+
+            btnDialog.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Toast.makeText(itemView.getContext(), "From RVAdapter- Dialog click :  ", Toast.LENGTH_SHORT).show();
+                }
+            });
+            btnsupervisor.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(itemView.getContext(), "From RVAdapter- SuperVisor :  ", Toast.LENGTH_SHORT).show();
+                }
+            });
+            btngoright.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(itemView.getContext(), "From RVAdapter- Goright :  " , Toast.LENGTH_SHORT).show();
+                }
+            });
+            btnPin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(itemView.getContext(), "From RVAdapter- Pin :  " , Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
         }
     }
 
