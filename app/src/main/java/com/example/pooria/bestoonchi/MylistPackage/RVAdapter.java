@@ -4,6 +4,7 @@ package com.example.pooria.bestoonchi.MylistPackage;
  * Created by mm on 12/2/2015.
  */
 
+        import android.content.Intent;
         import android.support.v7.widget.CardView;
         import android.support.v7.widget.RecyclerView;
         import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ package com.example.pooria.bestoonchi.MylistPackage;
         import android.widget.Toast;
 
 
+        import com.example.pooria.bestoonchi.ItemdetailActivity;
         import com.example.pooria.bestoonchi.MainActivity;
         import com.example.pooria.bestoonchi.R;
         import com.example.pooria.bestoonchi.model.Darkhast;
@@ -54,13 +56,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
             btnsupervisor = (Button) itemView.findViewById(R.id.darkhast_supervisor);
 
 
-            //onClick Event for each items
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(itemView.getContext(), "From RVAdapter- Title :  " + title.getText(), Toast.LENGTH_SHORT).show();
-                }
-            });
+
 
             btnDialog.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -94,7 +90,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
 
 
     List<Darkhast> darkhasts;
-
+    public static Darkhast darkhast;
 
     public RVAdapter(List<Darkhast> darkhasts){
 
@@ -119,21 +115,33 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
 
 
     @Override
-    public void onBindViewHolder(PersonViewHolder personViewHolder, int i) {
-        personViewHolder.title.setText(darkhasts.get(i).title);
-        personViewHolder.gheymat.setText(darkhasts.get(i).gheymat);
+    public void onBindViewHolder(PersonViewHolder mViewHolder, int i) {
+        final int I =i;
+        mViewHolder.title.setText(darkhasts.get(i).title);
+        mViewHolder.gheymat.setText(darkhasts.get(i).gheymat);
 
         //Binding parseFile to parseImage(darkhast_photo,photoId) in item.xml
         ParseFile photoFile = darkhasts.get(i).photoFile;
         if (photoFile != null) {
-            personViewHolder.photoId.setParseFile(photoFile);
-            personViewHolder.photoId.loadInBackground(new GetDataCallback() {
+            mViewHolder.photoId.setParseFile(photoFile);
+            mViewHolder.photoId.loadInBackground(new GetDataCallback() {
                 @Override
                 public void done(byte[] data, ParseException e) {
                     // nothing to do
                 }
             });
         }
+
+        //onClick Event for each items
+        mViewHolder.photoId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                darkhast = darkhasts.get(I);
+                Intent intent = new Intent(v.getContext(), ItemdetailActivity.class);
+                v.getContext().startActivity(intent);
+            }
+        });
 
     }
 

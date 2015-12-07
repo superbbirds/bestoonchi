@@ -16,31 +16,27 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageButton"
-                android:src="@mipmap/ic_launcher" />
+            <com.parse.ParseImageView
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:id="@+id/request_detail_photo"
+                android:scaleType="fitXY"/>
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:text="Item header"
-                android:id="@+id/textView2" />
+                android:id="@+id/request_detail_text"
+                android:textSize="30sp"/>
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView6"
-                android:src="@drawable/object4" />
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Large TextLarge TextLarge TextLarge TextLarge TextLarge TextLarge TextLarge Text"
-                android:id="@+id/textView3" />
+                android:id="@+id/request_detail_description" />
 
             <LinearLayout
                 android:orientation="horizontal"
