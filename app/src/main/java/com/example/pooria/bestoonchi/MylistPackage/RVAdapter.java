@@ -5,21 +5,28 @@ package com.example.pooria.bestoonchi.MylistPackage;
  */
 
         import android.content.Intent;
+        import android.graphics.Color;
         import android.support.v7.widget.CardView;
         import android.support.v7.widget.RecyclerView;
         import android.view.LayoutInflater;
+        import android.view.MotionEvent;
         import android.view.View;
         import android.view.ViewGroup;
         import android.widget.Button;
         import android.widget.ImageView;
+        import android.widget.ProgressBar;
         import android.widget.TextView;
-        import android.widget.Toast;
+
+
+        import java.security.SecureRandom;
 
 
         import com.example.pooria.bestoonchi.ItemdetailActivity;
         import com.example.pooria.bestoonchi.MainActivity;
         import com.example.pooria.bestoonchi.R;
         import com.example.pooria.bestoonchi.model.Darkhast;
+        import com.marshalchen.ultimaterecyclerview.UltimateRecyclerviewViewHolder;
+        import com.marshalchen.ultimaterecyclerview.UltimateViewAdapter;
         import com.parse.GetDataCallback;
         import com.parse.ParseException;
         import com.parse.ParseFile;
@@ -28,69 +35,75 @@ package com.example.pooria.bestoonchi.MylistPackage;
         import java.util.List;
 
 
-public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> {
+public class RVAdapter extends UltimateViewAdapter<RVAdapter.PersonViewHolder> {
 
+    private List<Darkhast> darkhasts;
+    public static Darkhast darkhast;
 
-    public static class PersonViewHolder extends RecyclerView.ViewHolder {
-
+    public static class PersonViewHolder extends UltimateRecyclerviewViewHolder {
 
         CardView cv;
         TextView title;
         TextView gheymat;
         ParseImageView photoId;
         Button btnPin;
+        ProgressBar progressBarSample;
         Button btnDialog;
         Button btnsupervisor;
         Button btngoright;
+        View item_view;
 
-        PersonViewHolder(final View itemView) {
+        PersonViewHolder(View itemView, boolean isItem) {
             super(itemView);
-            cv = (CardView)itemView.findViewById(R.id.cv);
-            title = (TextView)itemView.findViewById(R.id.darkhast_title);
-            gheymat = (TextView)itemView.findViewById(R.id.darkhast_gheymat);
-            photoId = (ParseImageView)itemView.findViewById(R.id.darkhast_photo);
+ //            itemView.setOnTouchListener(new SwipeDismissTouchListener(itemView, null, new SwipeDismissTouchListener.DismissCallbacks() {
+//                @Override
+//                public boolean canDismiss(Object token) {
+//                    Logs.d("can dismiss");
+//                    return true;
+//                }
+//
+//                @Override
+//                public void onDismiss(View view, Object token) {
+//                   // Logs.d("dismiss");
+//                    remove(getPosition());
+//
+//                }
+//            }));
+            if (isItem) {
 
-            btnDialog = (Button) itemView.findViewById(R.id.darkhast_dialog);
-            btnPin =(Button) itemView.findViewById(R.id.darkhast_pin);
-            btngoright =(Button) itemView.findViewById(R.id.darkhast_goright);
-            btnsupervisor = (Button) itemView.findViewById(R.id.darkhast_supervisor);
+                item_view = itemView.findViewById(R.id.itemview);
+                cv = (CardView) itemView.findViewById(R.id.cv);
+                title = (TextView) itemView.findViewById(R.id.darkhast_title);
+                gheymat = (TextView) itemView.findViewById(R.id.darkhast_gheymat);
+                photoId = (ParseImageView) itemView.findViewById(R.id.darkhast_photo);
 
-
-
-
-            btnDialog.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Toast.makeText(itemView.getContext(), "From RVAdapter- Dialog click :  ", Toast.LENGTH_SHORT).show();
-                }
-            });
-            btnsupervisor.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(itemView.getContext(), "From RVAdapter- SuperVisor :  ", Toast.LENGTH_SHORT).show();
-                }
-            });
-            btngoright.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(itemView.getContext(), "From RVAdapter- Goright :  " , Toast.LENGTH_SHORT).show();
-                }
-            });
-            btnPin.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(itemView.getContext(), "From RVAdapter- Pin :  " , Toast.LENGTH_SHORT).show();
-                }
-            });
+                btnDialog = (Button) itemView.findViewById(R.id.darkhast_dialog);
+                btnPin = (Button) itemView.findViewById(R.id.darkhast_pin);
+                btngoright = (Button) itemView.findViewById(R.id.darkhast_goright);
+                btnsupervisor = (Button) itemView.findViewById(R.id.darkhast_supervisor);
 
 
+            }
         }
+        @Override
+        public void onItemSelected() {
+            itemView.setBackgroundColor(Color.LTGRAY);
+        }
+        @Override
+        public void onItemClear() {
+            itemView.setBackgroundColor(0);
+        }
+
+    }
+    public Darkhast getItem(int position) {
+        if (customHeaderView != null)
+            position--;
+        if (position < darkhasts.size())
+            return darkhasts.get(position);
+        else return null;
     }
 
 
-    List<Darkhast> darkhasts;
-    public static Darkhast darkhast;
 
     public RVAdapter(List<Darkhast> darkhasts){
 
@@ -109,45 +122,159 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
     public PersonViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         //connect layout to this viewGroup
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup, false);
-        PersonViewHolder pvh = new PersonViewHolder(v);
+        PersonViewHolder pvh = new PersonViewHolder(v, true);
         return pvh;
+    }
+
+    @Override
+    public PersonViewHolder getViewHolder(View view) {
+        return new PersonViewHolder(view, false);
+    }
+
+    @Override
+    public PersonViewHolder onCreateViewHolder(ViewGroup parent) {
+        View v = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.ultimate_recycler_view_layout, parent, false);
+        PersonViewHolder vh = new PersonViewHolder(v, true);
+        return vh;
+    }
+
+    public void insert(Darkhast dar, int position) {
+        insert(darkhasts, dar, position);
+    }
+    public void remove(int position) {
+        remove(darkhasts, position);
+    }
+    public void clear() {
+        clear(darkhasts);
+    }
+    @Override
+    public void toggleSelection(int pos) {
+        super.toggleSelection(pos);
+    }
+    @Override
+    public void setSelected(int pos) {
+        super.setSelected(pos);
+    }
+    @Override
+    public void clearSelection(int pos) {
+        super.clearSelection(pos);
+    }
+
+    public void swapPositions(int from, int to) {
+        swapPositions(darkhasts, from, to);
     }
 
 
     @Override
     public void onBindViewHolder(PersonViewHolder mViewHolder, int i) {
-        final int I =i;
-        mViewHolder.title.setText(darkhasts.get(i).title);
-        mViewHolder.gheymat.setText(darkhasts.get(i).gheymat);
+        if (i < getItemCount() && (customHeaderView != null ? i <= darkhasts.size() : i < darkhasts.size()) && (customHeaderView != null ? i > 0 : true)) {
 
-        //Binding parseFile to parseImage(darkhast_photo,photoId) in item.xml
-        ParseFile photoFile = darkhasts.get(i).photoFile;
-        if (photoFile != null) {
-            mViewHolder.photoId.setParseFile(photoFile);
-            mViewHolder.photoId.loadInBackground(new GetDataCallback() {
+            final int I = i;
+            mViewHolder.title.setText(darkhasts.get(i).title);
+            mViewHolder.gheymat.setText(darkhasts.get(i).gheymat);
+
+            //Binding parseFile to parseImage(darkhast_photo,photoId) in item.xml
+            ParseFile photoFile = darkhasts.get(i).photoFile;
+            if (photoFile != null) {
+                mViewHolder.photoId.setParseFile(photoFile);
+                mViewHolder.photoId.loadInBackground(new GetDataCallback() {
+                    @Override
+                    public void done(byte[] data, ParseException e) {
+                        // nothing to do
+                    }
+                });
+            }
+            mViewHolder.photoId.setOnTouchListener(new View.OnTouchListener() {
                 @Override
-                public void done(byte[] data, ParseException e) {
-                    // nothing to do
+                public boolean onTouch(View v, MotionEvent event) {
+                    darkhast = darkhasts.get(I);
+                    Intent intent = new Intent(v.getContext(), ItemdetailActivity.class);
+                    v.getContext().startActivity(intent);
+                    return false;
                 }
             });
+
+            //onClick Event for each items
+
         }
-
-        //onClick Event for each items
-        mViewHolder.photoId.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                darkhast = darkhasts.get(I);
-                Intent intent = new Intent(v.getContext(), ItemdetailActivity.class);
-                v.getContext().startActivity(intent);
-            }
-        });
-
     }
 
 
     @Override
+    public RecyclerView.ViewHolder onCreateHeaderViewHolder(ViewGroup viewGroup) {
+        View view = LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.stick_header_item, viewGroup, false);
+        return new RecyclerView.ViewHolder(view) {
+        };
+    }
+
+    @Override
+    public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder, int position) {
+        TextView textView = (TextView) holder.itemView.findViewById(R.id.stick_text);
+        textView.setText("testHEADER");
+//        viewHolder.itemView.setBackgroundColor(Color.parseColor("#AA70DB93"));
+        holder.itemView.setBackgroundColor(Color.parseColor("#AAffffff"));
+        ImageView imageView = (ImageView) holder.itemView.findViewById(R.id.stick_img);
+
+
+        SecureRandom imgGen = new SecureRandom();
+        switch (imgGen.nextInt(3)) {
+            case 0:
+                imageView.setImageResource(R.drawable.test_back1);
+                break;
+            case 1:
+                imageView.setImageResource(R.drawable.test_back2);
+                break;
+            case 2:
+                imageView.setImageResource(R.drawable.test_back);
+                break;
+        }
+
+    }
+    @Override
+    public void onItemMove(int fromPosition, int toPosition) {
+        swapPositions(fromPosition, toPosition);
+//        notifyItemMoved(fromPosition, toPosition);
+        super.onItemMove(fromPosition, toPosition);
+    }
+
+    @Override
+    public void onItemDismiss(int position) {
+        remove(position);
+        // notifyItemRemoved(position);
+//        notifyDataSetChanged();
+        super.onItemDismiss(position);
+    }
+
+    //    private int getRandomColor() {
+//        SecureRandom rgen = new SecureRandom();
+//        return Color.HSVToColor(150, new float[]{
+//                rgen.nextInt(359), 1, 1
+//        });
+//    }
+
+    public void setOnDragStartListener(OnStartDragListener dragStartListener) {
+        mDragStartListener = dragStartListener;
+
+
+    }
+
+    @Override
     public int getItemCount() {
         return darkhasts.size();
+    }
+
+    @Override
+    public int getAdapterItemCount() {
+        return darkhasts.size();
+    }
+
+    @Override
+    public long generateHeaderId(int position) {
+        // URLogs.d("position--" + position + "   " + getItem(position));
+        if (getItem(position).title.length() > 0)
+            return getItem(position).title.charAt(0);
+        else return -1;
     }
 }

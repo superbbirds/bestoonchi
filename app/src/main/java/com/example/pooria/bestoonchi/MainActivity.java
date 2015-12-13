@@ -1,72 +1,68 @@
 package com.example.pooria.bestoonchi;
 
+
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.pooria.bestoonchi.MylistPackage.RVAdapter;
 import com.example.pooria.bestoonchi.model.Darkhast;
+import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
 import com.parse.FindCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseImageView;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.squareup.picasso.Picasso;
 
-import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     // Array of Darkhast class
     private List<Darkhast> darkhasts;
-    private RecyclerView rv;
+    private UltimateRecyclerView ultimateRecyclerView;
     private static final String TAG = "MainActivity";
+    private ProgressDialog progressDialog;
+    List<ParseObject> objects;
+    RVAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         actionBarInit();
+        initRecyclerView();
 
-        // RecyclerListView
-        rv = (RecyclerView) findViewById(R.id.rv);
-
-        //layout manager in 3form (linear , grid , staggeredGrid)
-        int columns = 2;
-        //LinearLayoutManager llm = new LinearLayoutManager(this);
-        //StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(columns, StaggeredGridLayoutManager.VERTICAL);
-        GridLayoutManager llm2 = new GridLayoutManager(this, columns);
-
-        rv.setLayoutManager(llm2);
-        rv.setHasFixedSize(true);
 
         //read data from Parse.com and add to darkhastArray
-        initializeData();
+        readData();
+
+        initializeAdapter();
 
 
     }
+
+
 
     private void actionBarInit() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -159,13 +155,9 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private ProgressDialog progressDialog;
-    List<ParseObject> objects;
-    RVAdapter adapter;
 
-    private void initializeData() {
-        progressDialog = ProgressDialog.show(MainActivity.this, "",
-                "Loading...", true);
+    private void readData() {
+
 
         darkhasts = new ArrayList<>();
 
@@ -208,14 +200,15 @@ public class MainActivity extends AppCompatActivity
 
                         Darkhast information = new Darkhast(title, description, photoFile);
                         darkhasts.add(information);
+
                         //change Adapter OR add itemAdapter must be implement here
+                        adapter.notifyItemInserted(darkhasts.size() - 1);
 
                     }
-                    //connect RecyclerListView to Darkhasts <list>
-                    initializeAdapter();
-                    progressDialog.dismiss();
+
+
                 } else {
-                    progressDialog.dismiss();
+
                     Toast.makeText(MainActivity.this, "Loading Error " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     // something went wrong
                     Log.d("Error ", e.toString());
@@ -228,20 +221,68 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    private void notifiChange() {
+        adapter.notifyDataSetChanged();
+
+    }
+
+    //connect RecyclerListView to Darkhasts <list>
     private void initializeAdapter() {
         adapter = new RVAdapter(darkhasts);
-        rv.setAdapter(adapter);
+        ultimateRecyclerView.setAdapter(adapter);
+
+//        ultimateRecyclerView.setEmptyView(getResources().getIdentifier("empty_view","layout",getPackageName()));
+//        ultimateRecyclerView.showEmptyView();
+
+    }
+
+    private void initRecyclerView() {
+        // RecyclerListView
+        ultimateRecyclerView = (UltimateRecyclerView) findViewById(R.id.ultimate_recycler_view);
+        //layout manager in 3form (linear , grid , staggeredGrid)
+        int columns = 2;
+        //LinearLayoutManager llm = new LinearLayoutManager(this);
+        //StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(columns, StaggeredGridLayoutManager.VERTICAL);
+        GridLayoutManager llm2 = new GridLayoutManager(this, columns, LinearLayoutManager.VERTICAL, false);
+        ultimateRecyclerView.setLayoutManager(llm2);
+        ultimateRecyclerView.setSaveEnabled(true);
+        Picasso picasso = Picasso.with(this);
+        ultimateRecyclerView.setHasFixedSize(true);
+
+        //set Animation
+        ultimateRecyclerView.getItemAnimator().setAddDuration(100);
+        ultimateRecyclerView.getItemAnimator().setMoveDuration(200);
+        ultimateRecyclerView.getItemAnimator().setChangeDuration(100);
+
+        //pull down refresh
+        ultimateRecyclerView.setDefaultOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshData();
+                        ultimateRecyclerView.setRefreshing(false);
+                    }
+                }, 1000);
+            }
+        });
+    }
+
+    private void refreshData() {
+
+
+        readData();
+        initializeAdapter();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(adapter==null)
-        {
-            Log.e(TAG,"adapter is Null");
-        }
-            else{
-            adapter.notifyDataSetChanged();
+        if (adapter == null) {
+            Log.e(TAG, "adapter is Null");
+        } else {
+            notifiChange();
 
         }
     }
